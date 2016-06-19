@@ -40,8 +40,64 @@
                         // $this->load->view('templates/header', $data);
                         $this->load->view('names/names_info_view', $data);
                         // $this->load->view('templates/footer');
-
                 }
+
+        public function show_add_form()
+        {
+        	$this->load->helper('form');
+        	$data['title'] = 'Add a new name';
+        	$this->load->view('names/add_name_view', $data);
+        }
+
+        public function create_name()
+        {   
+
+        	$this->load->helper('form');
+            
+            $data['title'] = 'Add a new name';
+
+            if (isset($_POST['submit']))
+            {
+            	$this->names_model->add_name();
+            	$this->load->view('names/add_ok_view');
+       		}
+       		else
+       		{
+       			$this->load->view('names/add_name_form');
+       		}
+        
+        }
+
+        public function show_update_form($id)
+        {   
+
+        	$this->load->helper('form');
+        	$data['names_item'] = $this->names_model->get_all_names($id);
+            // $data['title'] = 'Update name';
+
+            $this->load->view('names/update_form_view', $data);    
+        }
+
+        public function update_name_info()
+        {   
+
+        	$this->load->helper('form');
+            
+            $data['title'] = 'Update a name';
+
+            if (isset($_POST['submit']))
+            {
+            	$this->names_model->update_name();
+            	$this->load->view('names/update_ok_view');
+       		}
+       		else
+       		{
+       			$this->load->view('names/update_name_info', $data);
+       		}  
+        }
+                
+
+                
 
 	}
 ?>
